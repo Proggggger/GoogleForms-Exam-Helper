@@ -18,8 +18,8 @@ function createFormCopies() {
 
 function processFormsInFolder(fid) {
   const FOLDER_ID = fid;
-  const QUESTIONS_PER_SECTION = 2;
-  const SHUFFLE_QUESTIONS_ORDER = true;
+  const QUESTIONS_PER_SECTION = 5;      // This option specifies the number of questions to include in each section (except the first).
+  const SHUFFLE_QUESTIONS_ORDER = true;  // Set this option to enable shuffling the order of questions within the form.
 
   const folder = DriveApp.getFolderById(FOLDER_ID);
   const files = folder.getFilesByType(MimeType.GOOGLE_FORMS);
@@ -81,32 +81,3 @@ function pickRandomItems(arr, n) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, Math.min(n, arr.length));
 }
-/*
-function enableShuffleOptionsForAllQuestions(form) {
-  form.setShuffleQuestions(true);
-  return;
-  const items = form.getItems();
-
-  for (const item of items) {
-    const type = item.getType();
-    try {
-      switch (type) {
-        case FormApp.ItemType.MULTIPLE_CHOICE:
-          item.asMultipleChoiceItem().setShuffleOrder(true);
-          Logger.log(`Shuffle enabled for Multiple Choice: ${item.getTitle()}`);
-          break;
-        case FormApp.ItemType.CHECKBOX:
-          item.asCheckboxItem().setShuffleOrder(true);
-          Logger.log(`Shuffle enabled for Checkbox: ${item.getTitle()}`);
-          break;
-        case FormApp.ItemType.LIST:
-          item.asListItem().setShuffleOrder(true);
-          Logger.log(`Shuffle enabled for List: ${item.getTitle()}`);
-          break;
-      }
-    } catch (e) {
-      Logger.log(`Ошибка при установке shuffle для вопроса "${item.getTitle()}": ${e}`);
-    }
-  }
-}
-*/
